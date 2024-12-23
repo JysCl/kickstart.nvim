@@ -104,6 +104,12 @@ vim.opt.number = true
 -- Add relative line numbers, to help with jumping.
 vim.opt.relativenumber = true
 
+-- Set the number of spaces for a tab
+vim.opt.tabstop = 4
+
+-- Set the number of spaces for autoindent
+vim.opt.shiftwidth = 4
+
 -- No wrapping
 vim.opt.wrap = false
 -- Enable mouse mode, can be useful for resizing splits for example!
@@ -168,6 +174,19 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
+-- Source the files or the wanted lines.
+vim.keymap.set('n', '<space><space>x', '<cmd>source %<CR>', { desc = 'Source the file' })
+vim.keymap.set('n', '<space>x', ':.lua<CR>', { desc = 'Source the current line' })
+vim.keymap.set('v', '<space>x', ':lua<CR>', { desc = 'Source the highlighted lines' })
+
+-- Open a small terminal in neovim.
+vim.keymap.set('n', '<space>st', function()
+  vim.cmd.vnew()
+  vim.cmd.term()
+  vim.cmd.wincmd 'J'
+  vim.api.nvim_win_set_height(0, 10)
+end, { desc = 'Create a small terminal at the bottom' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
